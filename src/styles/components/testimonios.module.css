@@ -1,0 +1,52 @@
+.testimonios {
+  background: #fafafa;
+  padding: 5rem 2rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.title {
+  font-family: var(--font-lora);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--accent, #222);
+}
+
+.slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.track {
+  display: flex;
+  gap: 2rem;
+}
+
+.card {
+  flex: 0 0 350px;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #444;
+  margin-bottom: 1rem;
+  font-family: var(--font-inter);
+}
+
+.nombre {
+  font-weight: 600;
+  color: #111;
+  font-family: var(--font-lora);
+}
