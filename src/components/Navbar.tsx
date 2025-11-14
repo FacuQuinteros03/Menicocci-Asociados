@@ -11,7 +11,7 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.container}>
-        {/* LOGO */}
+        {/* //arreglo de logotipo */}
         <Link
           href="/"
           className={styles.logo}
