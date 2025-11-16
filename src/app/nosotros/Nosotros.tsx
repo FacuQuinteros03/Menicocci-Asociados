@@ -61,9 +61,9 @@ export default function NosotrosPremium() {
           transition={{ duration: 0.7, delay: 0.2 }}
         >
           Prestigioso estudio jurídico con sede en Rosario, reconocido por su
-          destacada trayectoria en derecho internacional y litigio
-          transfronterizo. Liderado por el Dr. Alejandro Menicocci, ofrecemos
-          asesoramiento legal de alto nivel para empresas y particulares.
+          destacada trayectoria de más de 30 años. Brindamos asesoramiento legal
+          de alto nivel a empresas y particulares, ofreciendo soluciones
+          estratégicas y un enfoque integral en cada caso.
         </motion.p>
 
         <motion.p
