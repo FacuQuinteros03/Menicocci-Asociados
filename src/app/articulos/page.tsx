@@ -2,6 +2,15 @@ import { getArticles } from '@/lib/getArticles';
 import Link from 'next/link';
 import styles from '../../styles/components/articles.module.css';
 
+interface Article {
+  _id: string;
+  title: string;
+  excerpt?: string;
+  publishedAt: string;
+  slug: { current: string };
+}
+
+
 export default async function ArticulosPage() {
   const articles = await getArticles();
 
@@ -10,7 +19,7 @@ export default async function ArticulosPage() {
       <h1 className={styles.title}>Artículos</h1>
 
       <div className={styles.grid}>
-        {articles.map((article: any) => (
+        {articles.map((article) => (
           <Link
             key={article._id}
             href={`/articulos/${article.slug.current}`}

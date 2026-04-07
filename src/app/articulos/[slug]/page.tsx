@@ -1,8 +1,7 @@
 import { getArticleBySlug } from '@/lib/getArticleBySlug';
-import { PortableText } from '@portabletext/react';
+import { PortableText, PortableTextComponents } from '@portabletext/react';
 import Image from 'next/image';
 import Link from 'next/link';
-// IMPORTANTE: Importar los iconos que agregamos antes
 import { ChevronLeft, Calendar, Clock } from 'lucide-react';
 import styles from '../../../styles/components/article.module.css';
 
@@ -11,26 +10,19 @@ interface ArticlePageProps {
 }
 
 export default async function ArticlePage(props: ArticlePageProps) {
-  const resolvedParams = await props.params;
-  const currentSlug = resolvedParams.slug;
+  const { slug } = await props.params;
 
-  if (!currentSlug) {
-    return <div className={styles.error}>Error: Slug no proporcionado.</div>;
-  }
+  if (!slug) return <div className={styles.error}>Error: Slug no proporcionado.</div>;
 
-  const article = await getArticleBySlug(currentSlug);
+  const article = await getArticleBySlug(slug);
 
-  if (!article) {
-    return (
-      <div className={styles.error}>Artículo no encontrado: {currentSlug}</div>
-    );
-  }
+  if (!article) return <div className={styles.error}>Artículo no encontrado.</div>;
 
-  // Función de tiempo de lectura
+  // Función de tiempo de lectura con tipos corregidos
   function estimateReadingTime(content: any[] = []) {
     if (!Array.isArray(content)) return 1;
     const text = content
-      .map((block: any) => {
+      .map((block) => {
         if (block._type === 'block' && block.children) {
           return block.children.map((child: any) => child.text).join(' ');
         }
@@ -43,15 +35,14 @@ export default async function ArticlePage(props: ArticlePageProps) {
 
   const readingTime = estimateReadingTime(article.content);
 
-  // Componentes de PortableText personalizados
-  const ptComponents = {
+  const ptComponents: PortableTextComponents = {
     block: {
-      h2: ({ children }: any) => <h2 className={styles.h2}>{children}</h2>,
-      h3: ({ children }: any) => <h3 className={styles.h3}>{children}</h3>,
-      normal: ({ children }: any) => <p className={styles.p}>{children}</p>,
+      h2: ({ children }) => <h2 className={styles.h2}>{children}</h2>,
+      h3: ({ children }) => <h3 className={styles.h3}>{children}</h3>,
+      normal: ({ children }) => <p className={styles.p}>{children}</p>,
     },
     marks: {
-      link: ({ children, value }: any) => {
+      link: ({ children, value }) => {
         const href = value?.href || '';
         return (
           <a
@@ -66,12 +57,14 @@ export default async function ArticlePage(props: ArticlePageProps) {
       },
     },
     types: {
-      image: ({ value }: any) =>
+      image: ({ value }) =>
         value?.asset?.url ? (
           <div className={styles.contentImageWrapper}>
-            <img
+            <Image
               src={value.asset.url}
-              alt={value.alt || ''}
+              alt={value.alt || 'Imagen del artículo'}
+              width={800}
+              height={500}
               className={styles.contentImage}
             />
           </div>
@@ -81,7 +74,6 @@ export default async function ArticlePage(props: ArticlePageProps) {
 
   return (
     <article className={`${styles.article} ${styles.fadeIn}`}>
-      {/* BOTÓN VOLVER */}
       <Link href="/articulos" className={styles.backButton}>
         <ChevronLeft size={18} />
         <span>Todos los artículos</span>
@@ -89,15 +81,11 @@ export default async function ArticlePage(props: ArticlePageProps) {
 
       <header className={styles.header}>
         <div className={styles.topMeta}>
-          {article.category && (
-            <span className={styles.categoryBadge}>{article.category}</span>
-          )}
+          {article.category && <span className={styles.categoryBadge}>{article.category}</span>}
           <div className={styles.metaInfo}>
             <span className={styles.metaItem}>
               <Calendar size={14} />
-              {article.publishedAt
-                ? new Date(article.publishedAt).toLocaleDateString('es-AR')
-                : '—'}
+              {article.publishedAt ? new Date(article.publishedAt).toLocaleDateString('es-AR') : '—'}
             </span>
             <span className={styles.metaItem}>
               <Clock size={14} />
@@ -107,10 +95,8 @@ export default async function ArticlePage(props: ArticlePageProps) {
         </div>
 
         <h1 className={styles.title}>{article.title}</h1>
-
         {article.excerpt && <p className={styles.excerpt}>{article.excerpt}</p>}
 
-        {/* IMAGEN PRINCIPAL */}
         {article.mainImage && (
           <div className={styles.heroImageWrapper}>
             <Image
@@ -124,7 +110,6 @@ export default async function ArticlePage(props: ArticlePageProps) {
         )}
       </header>
 
-      {/* CUERPO DEL ARTÍCULO */}
       <section className={styles.articleBody}>
         <PortableText value={article.content} components={ptComponents} />
       </section>
