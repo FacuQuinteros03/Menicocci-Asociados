@@ -33,7 +33,7 @@ export default function RootLayout({
         <AnimatePresence mode="wait">
           <motion.main
             key={pathname}
-            className="flex-grow pt-24"
+            className="flex-grow pt-24 flex flex-col"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}

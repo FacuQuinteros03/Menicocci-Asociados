@@ -14,7 +14,7 @@ export default function Footer() {
               <MapPin size={16} /> España 728 · Rosario, Argentina
             </p>
             <p>
-              <Phone size={16} /> +54 341 456-7890
+              <Phone size={16} /> +54 341 612-3156
             </p>
             <p>
               <Mail size={16} /> contacto@menicocciyasociados.com

@@ -1,52 +1,143 @@
+/* testimonios.module.css */
+
 .testimonios {
   background: #fafafa;
-  padding: 5rem 2rem;
+  padding: 6rem 0; /* Quitamos padding lateral para que el scroll nativo fluya al borde */
   text-align: center;
   overflow: hidden;
+  position: relative;
 }
 
 .title {
   font-family: var(--font-lora);
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: var(--accent, #222);
+  font-size: 2.2rem;
+  margin-bottom: 3.5rem;
+  color: #111;
+  padding: 0 1.5rem; /* El título sí mantiene padding */
 }
 
 .slider {
   width: 100%;
-  overflow: hidden;
   position: relative;
+  /* Efecto de fade en los bordes */
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+}
+
+/* --- SCROLL TÁCTIL (ARREGLO DE LOOK 'RARO') --- */
+.mobileScroll {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 1.5rem; /* Aire lateral para la primera y última card */
+  padding-bottom: 3rem; /* Espacio extra para que no se corte la sombra al scrollear */
+}
+
+.mobileScroll::-webkit-scrollbar {
+  display: none; /* Ocultamos barra nativa */
 }
 
 .track {
   display: flex;
   gap: 2rem;
+  width: max-content;
 }
 
 .card {
   flex: 0 0 350px;
   background: white;
   border-radius: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04); /* Sombra más suave y etérea */
+  padding: 2rem;
   text-align: left;
-  transition: transform 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  scroll-snap-align: center; /* Se imanta al centro */
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  position: relative;
 }
 
 .card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
 .text {
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 1rem;
+  line-height: 1.6;
   color: #444;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-family: var(--font-inter);
+  font-style: italic;
 }
 
 .nombre {
   font-weight: 600;
   color: #111;
   font-family: var(--font-lora);
+  display: block;
+}
+
+/* --- ICONO DE SCROLL --- */
+.scrollIconWrapper {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #94a3b8; /* Gris suave, muy sutil */
+  font-size: 0.85rem;
+  font-family: var(--font-inter);
+  opacity: 0.8;
+}
+
+.scrollIcon {
+  animation: scrollPulse 2s infinite ease-in-out;
+}
+
+@keyframes scrollPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 480px) {
+  .card {
+    flex: 0 0 290px; /* Tarjetas más angostas para móviles chicos */
+    padding: 1.8rem;
+  }
+
+  .title {
+    font-size: 1.9rem;
+  }
+
+  .scrollIconWrapper {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .card {
+    flex: 0 0 260px;
+  }
 }

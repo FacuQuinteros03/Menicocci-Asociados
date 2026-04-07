@@ -53,6 +53,9 @@ export default function Navbar() {
             <Link href="/equipo">Equipo</Link>
           </li>
           <li>
+            <Link href="/articulos">Artículos</Link>
+          </li>
+          <li>
             <Link href="/contacto">Contacto</Link>
           </li>
         </ul>
@@ -73,6 +76,11 @@ export default function Navbar() {
             <li>
               <Link href="/equipo" onClick={() => setMenuOpen(false)}>
                 Equipo
+              </Link>
+            </li>
+            <li>
+              <Link href="/articulos" onClick={() => setMenuOpen(false)}>
+                Artículos
               </Link>
             </li>
             <li>
