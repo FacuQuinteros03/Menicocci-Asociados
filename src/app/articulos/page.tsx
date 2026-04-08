@@ -2,6 +2,7 @@ import { getArticles } from '@/lib/getArticles';
 import Link from 'next/link';
 import styles from '../../styles/components/articles.module.css';
 
+// Definimos la estructura del artículo
 interface Article {
   _id: string;
   title: string;
@@ -10,9 +11,8 @@ interface Article {
   slug: { current: string };
 }
 
-
 export default async function ArticulosPage() {
-  const articles = await getArticles();
+  const articles: Article[] = await getArticles();
 
   return (
     <div className={styles.wrapper}>
@@ -31,7 +31,8 @@ export default async function ArticulosPage() {
               <p className={styles.excerpt}>{article.excerpt}</p>
 
               <p className={styles.date}>
-                Publicado: {new Date(article.publishedAt).toLocaleDateString()}
+                Publicado:{' '}
+                {new Date(article.publishedAt).toLocaleDateString('es-AR')}
               </p>
             </div>
           </Link>
